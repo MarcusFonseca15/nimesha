@@ -13,17 +13,67 @@ let lastFrameTime = null;
 const keys = Object.create(null);
 const mouse = { x: 0, y: 0, clicked: false };
 
-//inicializa player no meio e embaixo da tela
+//Configuraçao do MUNDO do jogo (TAMANHO DO MAPA)
+const WORLD = {
+    width: 2000,
+    height: 1500
+}
+
+//-------- CAMERA --------------
+const camera = {
+    x: 0,
+    y: 0,
+    width: canvas.width,
+    height: canvas.height,
+    update(player) {
+        //centraliza a camera no player
+        const playerCentroX = player.x + player.size / 2;
+        const playerCentroY = player.y + player.size / 2;
+        //seguir HORIZONTALMENTE
+        this.x = playerCentroX - this.width / 2;
+        //seguir VERTICALMENTE
+        const targetY = playerCentroY - this.height / 2;
+        const maxY = WORLD.height - this.height;
+
+        this.y = Math.min(Math.max(0, targetY), maxY);
+
+        //clamping geral pra camera não mostrar fora do mapa
+        this.x = Math.min(Math.max(0, this.x), WORLD.width - this.width);
+        this.y = Math.min(Math.max(0, this.y), WORLD.height - this.height);
+    }
+};
+
+const bgImage = new Image();
+let bgImageLoaded = false;
+bgImage.src = 'assets/fundo.png';
+bgImage.onload = () => {
+    bgImageLoaded = true;
+}
+
+//inicializa player no meio e embaixo do mundo
 const player = new Player(0, 0);
-player.x = (canvas.width - player.size) / 2;
-player.y = canvas.height - player.size;
+player.x = (WORLD.width - player.size) / 2;
+player.y = WORLD.height - player.size;
+camera.update(player);
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#001aff4a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    //MUNDO --------------------
+    ctx.save();
+    ctx.translate(-camera.x, -camera.y);
+
+    if (bgImageLoaded) {
+        ctx.drawImage(bgImage, 0, 0, WORLD.width, WORLD.height);
+    } else {
+        ctx.fillStyle = '#001aff4a';
+        ctx.fillRect(0, 0, WORLD.width, WORLD.height);
+    }
 
     player.draw(ctx);
+
+    ctx.restore();
+    //FIM DO MUNDO (CAMERA VOLTA)
 
     //OVERLAY DE PAUSE
     if (gameState === GAME_STATE.PAUSED) {
@@ -55,7 +105,8 @@ function gameLoop(timestamp) {
     lastFrameTime = timestamp;
 
     if (gameState === GAME_STATE.PLAYING) {
-        player.update(deltaTime, keys, canvas.width, canvas.height);
+        player.update(deltaTime, keys, WORLD.width, WORLD.height);
+        camera.update(player);
     }
 
     draw();
@@ -101,14 +152,21 @@ window.addEventListener('blur', () => {
 //recebe posição do mouse
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
-    mouse.x = (event.clientX - rect.left) * canvas.width / rect.width;
-    mouse.y = (event.clientY - rect.top) * canvas.height / rect.height;
+    const screenX = (event.clientX - rect.left) * canvas.width / rect.width;
+    const screenY = (event.clientY - rect.top) * canvas.height / rect.height;
+
+    // Converte a posição do cursor na tela para a posição real no mundo do jogo
+    mouse.x = screenX + camera.x;
+    mouse.y = screenY + camera.y;
 });
 //recebe posição do click
 canvas.addEventListener('click', (event) => {
     const rect = canvas.getBoundingClientRect();
-    mouse.x = (event.clientX - rect.left) * canvas.width / rect.width;
-    mouse.y = (event.clientY - rect.top) * canvas.height / rect.height;
+    const screenX = (event.clientX - rect.left) * canvas.width / rect.width;
+    const screenY = (event.clientY - rect.top) * canvas.height / rect.height;
+
+    mouse.x = screenX + camera.x;
+    mouse.y = screenY + camera.y;
     mouse.clicked = true;
 });
 

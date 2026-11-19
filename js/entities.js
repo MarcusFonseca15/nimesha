@@ -6,7 +6,7 @@ class Player {
         this.speed = speed;
     }
 
-    update(deltaTime, keys, canvasWidth, canvasHeight) {
+    update(deltaTime, keys, worldWidth, worldHeight) {
         //direção (anula direçao oposta ao msm tempo com Boolean)
         let moveX = Number(Boolean(keys.KeyD)) - Number(Boolean(keys.KeyA));
         let moveY = Number(Boolean(keys.KeyS)) - Number(Boolean(keys.KeyW));
@@ -19,11 +19,11 @@ class Player {
         }
         //posicao atual + direçao x vel x tempo
         this.x = Math.max(0, Math.min(
-            canvasWidth - this.size,
+            worldWidth - this.size,
             this.x + moveX * this.speed * deltaTime
         ));
         this.y = Math.max(0, Math.min(
-            canvasHeight - this.size,
+            worldHeight - this.size,
             this.y + moveY * this.speed * deltaTime
         ));
     } //End de update
