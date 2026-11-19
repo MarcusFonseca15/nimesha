@@ -1,5 +1,5 @@
 class Player {
-    constructor(x, y, size = 50, speed = 230) {
+    constructor(x, y, size = 35, speed = 230) {
         this.x = x;
         this.y = y;
         this.size = size;
