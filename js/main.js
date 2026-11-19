@@ -7,6 +7,9 @@ const GAME_STATE = Object.freeze({
     PAUSED: 'pausado'
 });
 
+//ESTADO DA DIMENSÃO (FALSE = AMARELO, TRUE = AZUL)
+let isDreamWorld = false;
+
 let gameState = GAME_STATE.PLAYING;
 let lastFrameTime = null;
 
@@ -82,11 +85,12 @@ function draw() {
     ctx.save();
     ctx.translate(-camera.x, -camera.y);
 
-    if (yellowPattern) {
-        ctx.fillStyle = yellowPattern;
+    if (bgImageLoaded) {
+        const dimensaoAtual = isDreamWorld ? bluePattern : yellowPattern;
+ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
         ctx.fillRect(0, 0, WORLD.width, WORLD.height);
     } else {
-        ctx.fillStyle = '#001aff4a';
+        ctx.fillStyle = isDreamWorld ? '#001aff4a' : '#eede2a88';
         ctx.fillRect(0, 0, WORLD.width, WORLD.height);
     }
 
@@ -150,6 +154,10 @@ window.addEventListener('keydown', (event) => {
 
     if (event.code === 'Space') {
         event.preventDefault(); //impede de rolar a pagina
+
+        if(!event.repeat && gameState === GAME_STATE.PLAYING) {
+            isDreamWorld = !isDreamWorld;
+        }
     }
 
     //Pause e impede repetir enqt pressiona
