@@ -15,8 +15,8 @@ const mouse = { x: 0, y: 0, clicked: false };
 
 //Configuraçao do MUNDO do jogo (TAMANHO DO MAPA)
 const WORLD = {
-    width: 2000,
-    height: 1500
+    width: 2800,
+    height: 2100
 }
 
 //-------- CAMERA --------------
@@ -43,12 +43,31 @@ const camera = {
     }
 };
 
-const bgImage = new Image();
+// CARREGAMENTO DOS TILES DO CHÃO
+const yellowGrassImage = new Image();
+const blueGrassImage = new Image();
+
+let yellowPattern = null;
+let bluePattern = null;
+
 let bgImageLoaded = false;
-bgImage.src = 'assets/fundo.png';
-bgImage.onload = () => {
+
+yellowGrassImage.src = 'assets/yellow_grass.png';
+blueGrassImage.src = 'assets/blue_grass.png';
+
+// REPETIÇÃO DO TILE AMARELO QUANDO CARREGAR
+yellowGrassImage.onload = () => {
+    yellowPattern = ctx.createPattern(yellowGrassImage, 'repeat');
+    //aumentei o tamanho dos tiles pra ficar mais visível
+    yellowPattern.setTransform(new DOMMatrix().scale(2.5));
     bgImageLoaded = true;
-}
+};
+
+// REPETIÇÃO DO TILE AZUL QUANDO CARREGAR
+blueGrassImage.onload = () => {
+    bluePattern = ctx.createPattern(blueGrassImage, 'repeat');
+    bluePattern.setTransform(new DOMMatrix().scale(2.5));
+};
 
 //inicializa player no meio e embaixo do mundo
 const player = new Player(0, 0);
@@ -63,8 +82,9 @@ function draw() {
     ctx.save();
     ctx.translate(-camera.x, -camera.y);
 
-    if (bgImageLoaded) {
-        ctx.drawImage(bgImage, 0, 0, WORLD.width, WORLD.height);
+    if (yellowPattern) {
+        ctx.fillStyle = yellowPattern;
+        ctx.fillRect(0, 0, WORLD.width, WORLD.height);
     } else {
         ctx.fillStyle = '#001aff4a';
         ctx.fillRect(0, 0, WORLD.width, WORLD.height);
