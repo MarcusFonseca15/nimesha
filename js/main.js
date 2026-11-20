@@ -18,8 +18,8 @@ const mouse = { x: 0, y: 0, clicked: false };
 
 //Configuraçao do MUNDO do jogo (TAMANHO DO MAPA)
 const WORLD = {
-    width: 2800,
-    height: 2100
+    width: 2000,
+    height: 1500
 }
 
 //-------- CAMERA --------------
