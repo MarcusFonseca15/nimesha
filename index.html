@@ -23,13 +23,27 @@
             display: block;
             background: white;
         }
+
+        #topview {
+            position: fixed;
+            top: calc(50% - 350px);
+            left: calc(50% + 460px);
+            width: 200px;
+            height: 150px;
+            border: 2px solid white;
+            background: #eede2a;
+        }
     </style>
     
 </head>
 <body>
     <canvas id="canvas" width="900" height="700"></canvas>
+    <canvas id="topview" width="200" height="150"></canvas>
+
+
     <script src="js/entities.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/topview.js"></script>
 
     
 </body>

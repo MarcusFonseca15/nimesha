@@ -22,6 +22,11 @@ const WORLD = {
     height: 1500
 }
 
+function setWorldSize(newWidth, newHeight) {
+    WORLD.width = newWidth;
+    WORLD.height = newHeight;
+}
+
 //-------- CAMERA --------------
 const camera = {
     x: 0,
