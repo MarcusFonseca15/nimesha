@@ -86,13 +86,13 @@ camera.update(player);
 //INSTANCIAR INIMIGO
 const enemies = [
     // MonoDim Yellow
-    new Enemy(600, 1200, 'yellow', { patrolAxis: 'horizontal', patrolDistance: 300 }),
+    new Enemy({ x: 600, y: 1200 }, { x: 900, y: 1200 }, 'yellow'),
 
     // MonoDim Blue
-    new Enemy(1400, 1200, 'blue', { patrolAxis: 'vertical', patrolDistance: 250 }),
+    new Enemy({ x: 1400, y: 1200 }, { x: 1400, y: 1450 }, 'blue'),
 
     // Duodimension
-    new Enemy(1000, 1400, 'both', { speed: 140, detectionRadius: 220 })
+    new Enemy({ x: 1000, y: 1400 }, { x: 1200, y: 1400 }, 'both', { speed: 140, detectionRadius: 220 })
 ];
 
 function draw() {

@@ -37,11 +37,12 @@ class Player {
 
 
 class Enemy {
-    constructor(x, y, dimension = 'yellow', options = {}) {
-        this.spawnX = x;
-        this.spawnY = y;
-        this.x = x;
-        this.y = y;
+    constructor(patrolStart, patrolEnd, dimension = 'yellow', options = {}) {
+        this.patrolStart = { x: patrolStart.x, y: patrolStart.y };
+        this.patrolEnd = { x: patrolEnd.x, y: patrolEnd.y };
+        this.patrolTarget = this.patrolEnd; //alterna entre start e end
+        this.x = this.patrolStart.x;
+        this.y = this.patrolStart.y;
         this.size = options.size || 35;
         this.speed = options.speed || 120;
         
@@ -50,9 +51,6 @@ class Enemy {
 
         //DETECÇÃO E PATRULHA
         this.detectionRadius = options.detectionRadius || 180;
-        this.patrolDistance = options.patrolDistance || 200; // Dist Max
-        this.patrolAxis = options.patrolAxis || 'horizontal';
-        this.patrolDir = 1; // 1 ou -1
 
         // Estados patrolling, chasing ou returning
         this.state = 'patrolling';
@@ -96,43 +94,38 @@ class Enemy {
 
         } else if (this.state === 'returning') {
             // Retornar
-            const distToSpawn = Math.hypot(this.spawnX - this.x, this.spawnY - this.y);
+            const distToSpawn = Math.hypot(this.patrolStart.x - this.x, this.patrolStart.y - this.y);
+            const returnStep = this.speed * deltaTime;
 
-            if (distToSpawn < 5) {
+            if (distToSpawn <= Math.max(5, returnStep)) {
                 // Chegou ao Spawn -> Patrulhar
-                this.x = this.spawnX;
-                this.y = this.spawnY;
+                this.x = this.patrolStart.x;
+                this.y = this.patrolStart.y;
+                this.patrolTarget = this.patrolEnd;
                 this.state = 'patrolling';
             } else {
-                const dirX = (this.spawnX - this.x) / distToSpawn;
-                const dirY = (this.spawnY - this.y) / distToSpawn;
+                const dirX = (this.patrolStart.x - this.x) / distToSpawn;
+                const dirY = (this.patrolStart.y - this.y) / distToSpawn;
 
-                this.x += dirX * this.speed * deltaTime;
-                this.y += dirY * this.speed * deltaTime;
+                this.x += dirX * returnStep;
+                this.y += dirY * returnStep;
             }
 
         } else if (this.state === 'patrolling') {
-            if (this.patrolAxis === 'horizontal') {
-                this.x += this.patrolDir * this.speed * 0.6 * deltaTime;
-                
-                //loop invertendo direção
-                if (this.x >= this.spawnX + this.patrolDistance) {
-                    this.x = this.spawnX + this.patrolDistance;
-                    this.patrolDir = -1;
-                } else if (this.x <= this.spawnX) {
-                    this.x = this.spawnX;
-                    this.patrolDir = 1;
-                }
+            const deltaX = this.patrolTarget.x - this.x;
+            const deltaY = this.patrolTarget.y - this.y;
+            const distanceToTarget = Math.hypot(deltaX, deltaY);
+            const patrolStep = this.speed * 0.6 * deltaTime;
+
+            if (distanceToTarget <= patrolStep) {
+                this.x = this.patrolTarget.x;
+                this.y = this.patrolTarget.y;
+                this.patrolTarget = this.patrolTarget === this.patrolEnd
+                    ? this.patrolStart
+                    : this.patrolEnd;
             } else {
-                this.y += this.patrolDir * this.speed * 0.6 * deltaTime;
-                
-                if (this.y >= this.spawnY + this.patrolDistance) {
-                    this.y = this.spawnY + this.patrolDistance;
-                    this.patrolDir = -1;
-                } else if (this.y <= this.spawnY) {
-                    this.y = this.spawnY;
-                    this.patrolDir = 1;
-                }
+                this.x += deltaX / distanceToTarget * patrolStep;
+                this.y += deltaY / distanceToTarget * patrolStep;
             }
         }
     } // End de update
