@@ -83,6 +83,18 @@ player.x = (WORLD.width - player.size) / 2;
 player.y = WORLD.height - player.size;
 camera.update(player);
 
+//INSTANCIAR INIMIGO
+const enemies = [
+    // MonoDim Yellow
+    new Enemy(600, 1200, 'yellow', { patrolAxis: 'horizontal', patrolDistance: 300 }),
+
+    // MonoDim Blue
+    new Enemy(1400, 1200, 'blue', { patrolAxis: 'vertical', patrolDistance: 250 }),
+
+    // Duodimension
+    new Enemy(1000, 1400, 'both', { speed: 140, detectionRadius: 220 })
+];
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -101,6 +113,8 @@ ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
 
     player.draw(ctx);
 
+    enemies.forEach(enemy => enemy.draw(ctx, isDreamWorld));
+    
     ctx.restore();
     //FIM DO MUNDO (CAMERA VOLTA)
 
@@ -135,6 +149,9 @@ function gameLoop(timestamp) {
 
     if (gameState === GAME_STATE.PLAYING) {
         player.update(deltaTime, keys, WORLD.width, WORLD.height);
+
+        enemies.forEach(enemy => enemy.update(deltaTime, player, isDreamWorld));
+
         camera.update(player);
     }
 
