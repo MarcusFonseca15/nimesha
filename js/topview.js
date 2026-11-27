@@ -10,7 +10,7 @@ function createTopViewPattern(image) {
 
     const pattern = topViewCtx.createPattern(image, 'repeat');
     if (pattern) {
-        pattern.setTransform(new DOMMatrix().scale(2.5));
+        pattern.setTransform(new DOMMatrix().scale(2));
     }
     return pattern;
 }

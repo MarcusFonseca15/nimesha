@@ -3,18 +3,28 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const GAME_STATE = Object.freeze({
+    MENU: 'menu',
+    CUTSCENE: 'cutscene',
+    FADING: 'transicao',
     PLAYING: 'jogando',
     PAUSED: 'pausado'
 });
 
+//para UI e menu
+const SHOW_START_SCREEN = true;
+
 //ESTADO DA DIMENSÃO (FALSE = AMARELO, TRUE = AZUL)
 let isDreamWorld = false;
 
-let gameState = GAME_STATE.PLAYING;
+let gameState = SHOW_START_SCREEN ? GAME_STATE.MENU : GAME_STATE.PLAYING;
 let lastFrameTime = null;
+
+let configInput = 'space';
 
 const keys = Object.create(null);
 const mouse = { x: 0, y: 0, clicked: false };
+
+let activeButtons = {};
 
 //Configuraçao do MUNDO do jogo (TAMANHO DO MAPA)
 const WORLD = {
@@ -52,13 +62,14 @@ const camera = {
 };
 
 // CARREGAMENTO DOS TILES DO CHÃO
-const yellowGrassImage = new Image();
-const blueGrassImage = new Image();
-
-let yellowPattern = null;
-let bluePattern = null;
 
 let bgImageLoaded = false;
+
+const yellowGrassImage = new Image();
+let yellowPattern = null;
+
+const blueGrassImage = new Image();
+let bluePattern = null;
 
 yellowGrassImage.src = 'assets/yellow_grass.png';
 blueGrassImage.src = 'assets/blue_grass.png';
@@ -67,14 +78,14 @@ blueGrassImage.src = 'assets/blue_grass.png';
 yellowGrassImage.onload = () => {
     yellowPattern = ctx.createPattern(yellowGrassImage, 'repeat');
     //aumentei o tamanho dos tiles pra ficar mais visível
-    yellowPattern.setTransform(new DOMMatrix().scale(2.5));
+    yellowPattern.setTransform(new DOMMatrix().scale(2));
     bgImageLoaded = true;
 };
 
 // REPETIÇÃO DO TILE AZUL QUANDO CARREGAR
 blueGrassImage.onload = () => {
     bluePattern = ctx.createPattern(blueGrassImage, 'repeat');
-    bluePattern.setTransform(new DOMMatrix().scale(2.5));
+    bluePattern.setTransform(new DOMMatrix().scale(2));
 };
 
 //inicializa player no meio e embaixo do mundo
@@ -104,7 +115,7 @@ function draw() {
 
     if (bgImageLoaded) {
         const dimensaoAtual = isDreamWorld ? bluePattern : yellowPattern;
-ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
+        ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
         ctx.fillRect(0, 0, WORLD.width, WORLD.height);
     } else {
         ctx.fillStyle = isDreamWorld ? '#001aff4a' : '#eede2a88';
@@ -119,7 +130,9 @@ ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
     //FIM DO MUNDO (CAMERA VOLTA)
 
     //OVERLAY DE PAUSE
-    if (gameState === GAME_STATE.PAUSED) {
+    if (gameState === GAME_STATE.MENU) {
+        activeButtons = UI.drawMenu(ctx, canvas.width, canvas.height, configInput);
+    } else if (gameState === GAME_STATE.PAUSED) {
         ctx.fillStyle = '#4c2ae3bf';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -133,7 +146,7 @@ ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
         ctx.fillText('PAUSADO', canvas.width / 2, canvas.height / 2);
         ctx.font = '16px sans-serif';
         ctx.fillText('Pressione P para continuar', canvas.width / 2, canvas.height / 2 + 40);
-    } else {
+    } else if (gameState === GAME_STATE.PLAYING) {
         ctx.textAlign = 'left';
         ctx.font = '16px sans-serif';
         ctx.fillText('JOGANDO', 16, 24);
@@ -205,7 +218,7 @@ canvas.addEventListener('mousemove', (event) => {
     const screenX = (event.clientX - rect.left) * canvas.width / rect.width;
     const screenY = (event.clientY - rect.top) * canvas.height / rect.height;
 
-    // Converte a posição do cursor na tela para a posição real no mundo do jogo
+    // Converte a posição do cursor na tela pra posição real no mundo do jogo
     mouse.x = screenX + camera.x;
     mouse.y = screenY + camera.y;
 });
@@ -214,6 +227,20 @@ canvas.addEventListener('click', (event) => {
     const rect = canvas.getBoundingClientRect();
     const screenX = (event.clientX - rect.left) * canvas.width / rect.width;
     const screenY = (event.clientY - rect.top) * canvas.height / rect.height;
+
+    if (gameState === GAME_STATE.MENU) {
+        UI.handleMenuClick(
+            { x: screenX, y: screenY },
+            activeButtons,
+            {
+                onStart: () => { gameState = GAME_STATE.PLAYING; },
+                onToggleInput: () => {
+                    configInput = configInput === 'space' ? 'blink' : 'space';
+                }
+            }
+        );
+        return;
+    }
 
     mouse.x = screenX + camera.x;
     mouse.y = screenY + camera.y;
