@@ -71,6 +71,9 @@ let yellowPattern = null;
 const blueGrassImage = new Image();
 let bluePattern = null;
 
+const playerImage = new Image();
+playerImage.src = 'assets/player.png';
+
 yellowGrassImage.src = 'assets/yellow_grass.png';
 blueGrassImage.src = 'assets/blue_grass.png';
 
@@ -90,6 +93,7 @@ blueGrassImage.onload = () => {
 
 //inicializa player no meio e embaixo do mundo
 const player = new Player(0, 0);
+player.image = playerImage;
 player.x = (WORLD.width - player.size) / 2;
 player.y = WORLD.height - player.size;
 camera.update(player);

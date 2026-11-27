@@ -4,6 +4,8 @@ class Player {
         this.y = y;
         this.size = size;
         this.speed = speed;
+        this.image = null;
+        this.direction = { x: 1, y: 0 }; //facing
     }
 
     update(deltaTime, keys, worldWidth, worldHeight) {
@@ -16,6 +18,8 @@ class Player {
         if (magnitude > 0) {
             moveX /= magnitude;
             moveY /= magnitude;
+            this.direction.x = moveX;
+            this.direction.y = moveY;
         }
         //posicao atual + direçao x vel x tempo
         this.x = Math.max(0, Math.min(
@@ -29,8 +33,22 @@ class Player {
     } //End de update
 
     draw(ctx) {
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        if (this.image && this.image.complete && this.image.naturalWidth > 0) {
+            ctx.save();
+            ctx.imageSmoothingEnabled = false;
+            //inverte para esquerda
+            if (this.direction.x < 0) {
+                ctx.translate(this.x + this.size, this.y);
+                ctx.scale(-1, 1);
+                ctx.drawImage(this.image, 0, 0, this.size, this.size);
+            } else {
+                ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
+            }
+            ctx.restore();
+        } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(this.x, this.y, this.size, this.size);
+        }
     }//End de draw
 
 } //End de Player ----------------
