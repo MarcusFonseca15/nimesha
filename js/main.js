@@ -10,7 +10,7 @@ const GAME_STATE = Object.freeze({
     PAUSED: 'pausado'
 });
 
-//para UI e menu
+//Mostrar menu
 const SHOW_START_SCREEN = true;
 
 //ESTADO DA DIMENSÃO (FALSE = AMARELO, TRUE = AZUL)
@@ -61,35 +61,9 @@ const camera = {
     }
 };
 
-// CARREGAMENTO DOS TILES DO CHÃO
-
-let bgImageLoaded = false;
-
-const yellowGrassImage = new Image();
-let yellowPattern = null;
-
-const blueGrassImage = new Image();
-let bluePattern = null;
-
+//Carregamento do Spritesheet do Player
 const playerImage = new Image();
 playerImage.src = 'assets/player-sheet.png';
-
-yellowGrassImage.src = 'assets/yellow_grass.png';
-blueGrassImage.src = 'assets/blue_grass.png';
-
-// REPETIÇÃO DO TILE AMARELO QUANDO CARREGAR
-yellowGrassImage.onload = () => {
-    yellowPattern = ctx.createPattern(yellowGrassImage, 'repeat');
-    //aumentei o tamanho dos tiles pra ficar mais visível
-    yellowPattern.setTransform(new DOMMatrix().scale(2));
-    bgImageLoaded = true;
-};
-
-// REPETIÇÃO DO TILE AZUL QUANDO CARREGAR
-blueGrassImage.onload = () => {
-    bluePattern = ctx.createPattern(blueGrassImage, 'repeat');
-    bluePattern.setTransform(new DOMMatrix().scale(2));
-};
 
 //inicializa player no meio e embaixo do mundo
 const player = new Player(0, 0);
@@ -110,6 +84,25 @@ const enemies = [
     new Enemy({ x: 1000, y: 1400 }, { x: 1200, y: 1400 }, 'both', { speed: 140, detectionRadius: 220 })
 ];
 
+//------------CARREGAR FASE (JSON) ---------------
+function loadLevelNumber(levelNum) {
+    return LevelManager.loadLevelByIndex(levelNum, () => {
+        console.log(`Fase ${levelNum} carregada`);
+    }).then(levelInfo => {
+        //ajusta mundo baseado na fase
+        setWorldSize(levelInfo.width, levelInfo.height);
+
+        player.x = levelInfo.spawnX;
+        player.y = levelInfo.spawnY;
+
+        camera.update(player);
+    });
+}
+
+loadLevelNumber(1).catch(error => {
+    console.error('Não foi possível carregar a fase 1:', error);
+});
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -117,14 +110,8 @@ function draw() {
     ctx.save();
     ctx.translate(-camera.x, -camera.y);
 
-    if (bgImageLoaded) {
-        const dimensaoAtual = isDreamWorld ? bluePattern : yellowPattern;
-        ctx.fillStyle = dimensaoAtual || (isDreamWorld ? '#001aff4a' : '#eede2a88');
-        ctx.fillRect(0, 0, WORLD.width, WORLD.height);
-    } else {
-        ctx.fillStyle = isDreamWorld ? '#001aff4a' : '#eede2a88';
-        ctx.fillRect(0, 0, WORLD.width, WORLD.height);
-    }
+    //matriz de blocos da dimensão ativa
+    LevelManager.drawMap(ctx, isDreamWorld);
 
     player.draw(ctx);
 

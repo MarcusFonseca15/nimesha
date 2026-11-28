@@ -1,5 +1,7 @@
 const LevelManager = {
     currentLevelData: null,
+    currentLevelIndex: 1,
+    totalLevels: 5,
     renderTileSize: 48, //16px * 3 = 48px na tela
     tileImages: {},
     tilesLoadedCount: 0,
@@ -70,6 +72,13 @@ const LevelManager = {
             width: this.world.width,
             height: this.world.height
         };
+    },
+
+    //Carrega a fase dinamicamente pelo número
+    async loadLevelByIndex(levelIndex, onComplete) {
+        this.currentLevelIndex = levelIndex;
+        const jsonPath = `levels/fase${levelIndex}.json`;
+        return await this.loadLevel(jsonPath, onComplete);
     },
 
     //COLISAO

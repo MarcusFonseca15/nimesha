@@ -1,0 +1,431 @@
+{
+ "formato": "blocagem-dimensional",
+ "versao": 1,
+ "nome": "fase 2: think outside the box",
+ "largura": 44,
+ "altura": 26,
+ "tamanhoTile": 16,
+ "legenda": {
+  ".": "Chão",
+  "#": "Parede sólida",
+  "r": "Parede rachada",
+  " ": "Abismo / vazio",
+  "^": "Espinhos",
+  "L": "Lanterna",
+  "c": "Placa de pressão",
+  "k": "Cristal / chave",
+  "d": "Portão fechado",
+  "D": "Saída"
+ },
+ "blocos": [
+  {
+   "char": ".",
+   "nome": "Chão",
+   "cor": "#92959a",
+   "categoria": "floor",
+   "glifo": "floor"
+  },
+  {
+   "char": "#",
+   "nome": "Parede sólida",
+   "cor": "#7a4c2c",
+   "categoria": "solid",
+   "glifo": "wall"
+  },
+  {
+   "char": "r",
+   "nome": "Parede rachada",
+   "cor": "#7a4c2c",
+   "categoria": "solid",
+   "glifo": "crack"
+  },
+  {
+   "char": "g",
+   "nome": "Vidro (bloqueia, deixa ver)",
+   "cor": "#bee1f0",
+   "categoria": "solid",
+   "glifo": "glass"
+  },
+  {
+   "char": " ",
+   "nome": "Abismo / vazio",
+   "cor": "#121318",
+   "categoria": "void",
+   "glifo": "void"
+  },
+  {
+   "char": "=",
+   "nome": "Trilho de plataforma",
+   "cor": "#f0c419",
+   "categoria": "void",
+   "glifo": "rail"
+  },
+  {
+   "char": "^",
+   "nome": "Espinhos",
+   "cor": "#d63031",
+   "categoria": "hazard",
+   "glifo": "spikes"
+  },
+  {
+   "char": "L",
+   "nome": "Lanterna",
+   "cor": "#ff9f1a",
+   "categoria": "object",
+   "glifo": "lamp"
+  },
+  {
+   "char": "l",
+   "nome": "Lanterna frágil",
+   "cor": "#ff9f1a",
+   "categoria": "object",
+   "glifo": "lampx"
+  },
+  {
+   "char": "F",
+   "nome": "Fogueira",
+   "cor": "#ff4d1a",
+   "categoria": "hazard",
+   "glifo": "fire"
+  },
+  {
+   "char": "S",
+   "nome": "Espada / item",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "sword"
+  },
+  {
+   "char": "C",
+   "nome": "Alavanca",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "lever"
+  },
+  {
+   "char": "c",
+   "nome": "Placa de pressão",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "plate"
+  },
+  {
+   "char": "k",
+   "nome": "Cristal / chave",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "gem"
+  },
+  {
+   "char": "d",
+   "nome": "Portão fechado",
+   "cor": "#1a7846",
+   "categoria": "solid",
+   "glifo": "gate"
+  },
+  {
+   "char": "D",
+   "nome": "Saída",
+   "cor": "#2ecc71",
+   "categoria": "object",
+   "glifo": "exit"
+  }
+ ],
+ "tiposEntidade": [
+  {
+   "tipo": "player",
+   "nome": "Player",
+   "cor": "#ffffff",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "npc",
+   "nome": "NPC",
+   "cor": "#3478e6",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": true
+  },
+  {
+   "tipo": "chaser",
+   "nome": "Inimigo perseguidor",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "patrol",
+   "nome": "Inimigo patrulheiro",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "charger",
+   "nome": "Investida (linha reta)",
+   "cor": "#8e44ad",
+   "forma": "triangle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "moth",
+   "nome": "Mariposa (voa)",
+   "cor": "#8e44ad",
+   "forma": "diamond",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "goblin",
+   "nome": "Goblin",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "golem",
+   "nome": "Golem",
+   "cor": "#8e44ad",
+   "forma": "square",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "boulder",
+   "nome": "Rocha rolante",
+   "cor": "#696c72",
+   "forma": "ring",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "platform",
+   "nome": "Plataforma móvel",
+   "cor": "#f0c419",
+   "forma": "rect",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "eco",
+   "nome": "Chefe",
+   "cor": "#8e44ad",
+   "forma": "boss",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  }
+ ],
+ "dimensaoA": [
+  "                                            ",
+  " ########               ################### ",
+  " #..L...#################........##.......# ",
+  " #..............#.......d....L...r........# ",
+  " #......................d........###...k..# ",
+  " #..............#.......d........###......# ",
+  " #......#################........##.......# ",
+  " ########               #..################ ",
+  "                        #.................# ",
+  "                        ################..# ",
+  "                      ##################..# ",
+  "                      #......     ........# ",
+  "         ##############......     ..L.....# ",
+  "         #............#......     ........# ",
+  "         #..L.........d......     ........# ",
+  "         #............d...................# ",
+  "         #............d......     ........# ",
+  "         #............#......     ..L.....# ",
+  "         #............#......     ........# ",
+  " ##############c########################### ",
+  " #.......######.#######                     ",
+  " #.......d............#                     ",
+  " #.......d............#                     ",
+  " #.......#............#                     ",
+  " #.......##############                     ",
+  " ###DD####                                  "
+ ],
+ "dimensaoB": [
+  "                                            ",
+  " ########               ################### ",
+  " #..L...#################........##.......# ",
+  " #..............#.......d....L...r........# ",
+  " #..............#.......d........###...k..# ",
+  " #..............#.......d........###......# ",
+  " #......#################........##.......# ",
+  " ########               #..################ ",
+  "                        #......^^^^.......# ",
+  "                        ################..# ",
+  "                      ##################..# ",
+  "                      #......     ........# ",
+  "         ##############......     ..L.....# ",
+  "         #............#......     ........# ",
+  "         #..L.........d......     ........# ",
+  "         #............d......     ........# ",
+  "         #............d......     ........# ",
+  "         #............#......     ..L.....# ",
+  "         #............#......     ........# ",
+  " ##############c########################### ",
+  " #.......##############                     ",
+  " #.......d............#                     ",
+  " #.......d^^^^^^^^^^^^#                     ",
+  " #.......#^^^^^^^^^^^^#                     ",
+  " #.......##############                     ",
+  " ###DD####                                  "
+ ],
+ "entidades": [
+  {
+   "uid": "lxdummqi",
+   "tipo": "player",
+   "nome": "Início",
+   "x": 3,
+   "y": 4,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  },
+  {
+   "uid": "abcbux5b",
+   "tipo": "chaser",
+   "nome": "Stalker 1",
+   "x": 21,
+   "y": 4,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  },
+  {
+   "uid": "d4n8spqh",
+   "tipo": "patrol",
+   "nome": "IôIô",
+   "x": 39,
+   "y": 8,
+   "largura": 1,
+   "altura": 1,
+   "rota": [
+    {
+     "x": 27,
+     "y": 8
+    },
+    {
+     "x": 41,
+     "y": 8
+    }
+   ],
+   "soExisteEm": null,
+   "rotaModo": "idaEVolta"
+  },
+  {
+   "uid": "rzbioz0k",
+   "tipo": "charger",
+   "nome": "Crusher",
+   "x": 25,
+   "y": 15,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  },
+  {
+   "uid": "02v71bj1",
+   "tipo": "chaser",
+   "nome": "Stalker 2",
+   "x": 19,
+   "y": 14,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  },
+  {
+   "uid": "waoigebs",
+   "tipo": "npc",
+   "nome": "NPC",
+   "x": 41,
+   "y": 6,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  },
+  {
+   "uid": "4nyf161y",
+   "tipo": "npc",
+   "nome": "Esqueleto Antigo de um Herói desconhecido.",
+   "x": 41,
+   "y": 6,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  }
+ ],
+ "conexoes": [
+  {
+   "x": 4,
+   "y": 25,
+   "alvo": "fase3.json",
+   "chegada": "ponto de início"
+  },
+  {
+   "x": 5,
+   "y": 25,
+   "alvo": "fase3.json",
+   "chegada": "ponto de início"
+  }
+ ],
+ "notas": [
+  {
+   "uid": "kus61cwx",
+   "n": 1,
+   "x": 13,
+   "y": 4,
+   "texto": "O Player não sabe usar a espada ainda. O Perseguidor acorda e corre até você, o único jeito de matar ele é  sufocando ele na parede. "
+  },
+  {
+   "uid": "u0b08lhc",
+   "n": 2,
+   "x": 25,
+   "y": 7,
+   "texto": "Observe o Yoyo (uma criatura sem muita inteligência que fica percorrendo o mesmo caminho, se você chegar muito perto ela te morde). Troque para B para matar ela nos espinhos, caso ela veja os espinhos antes de pisar o path que ela faz se adapta."
+  },
+  {
+   "uid": "fkc2fxxv",
+   "n": 3,
+   "x": 37,
+   "y": 15,
+   "texto": "Do outro lado da ponte há um Crusher, um tipo de mob que faz uma investida (somente em linha reta) e continua até bater em uma parede e ficar tonto. Atraia ele para x > 34 até ele bater na parede e depois atraia pro outro lado para ele quebrar o portão com a investida."
+  },
+  {
+   "uid": "83sfbsk8",
+   "n": 4,
+   "x": 18,
+   "y": 19,
+   "texto": "Porta trancada na dimensão B, atraia o Stalker2 até a porta e mate o sufocado. (cuidado com os espinhos que só aparecem na dimensão B)"
+  },
+  {
+   "uid": "vqklcw6c",
+   "n": 5,
+   "x": 4,
+   "y": 23,
+   "texto": "Saída."
+  }
+ ]
+}

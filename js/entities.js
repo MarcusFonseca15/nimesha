@@ -53,12 +53,14 @@ class Player {
         }
     } //End de update
 
-    draw(ctx) {
+   draw(ctx) {
         if (this.image && this.image.complete && this.image.naturalWidth > 0) {
             ctx.save();
             ctx.imageSmoothingEnabled = false;
             const sourceX = this.animationFrame * PLAYER_FRAME_SIZE;
+
             if (this.direction.x < 0) {
+                // Inverte o contexto no eixo X e centraliza no frame do player
                 ctx.translate(this.x + this.size, this.y);
                 ctx.scale(-1, 1);
                 ctx.drawImage(
@@ -78,7 +80,7 @@ class Player {
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(this.x, this.y, this.size, this.size);
         }
-    }//End de draw
+    } // End de draw
 
 } //End de Player ----------------
 

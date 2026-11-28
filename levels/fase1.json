@@ -1,0 +1,352 @@
+{
+ "formato": "blocagem-dimensional",
+ "versao": 1,
+ "nome": "fase 1: awakening ",
+ "largura": 40,
+ "altura": 22,
+ "tamanhoTile": 16,
+ "legenda": {
+  ".": "Chão",
+  "#": "Parede sólida",
+  " ": "Abismo / vazio",
+  "^": "Espinhos",
+  "L": "Lanterna",
+  "F": "Fogueira",
+  "S": "Espada / item",
+  "D": "Saída"
+ },
+ "blocos": [
+  {
+   "char": ".",
+   "nome": "Chão",
+   "cor": "#92959a",
+   "categoria": "floor",
+   "glifo": "floor"
+  },
+  {
+   "char": "#",
+   "nome": "Parede sólida",
+   "cor": "#7a4c2c",
+   "categoria": "solid",
+   "glifo": "wall"
+  },
+  {
+   "char": "r",
+   "nome": "Parede rachada",
+   "cor": "#7a4c2c",
+   "categoria": "solid",
+   "glifo": "crack"
+  },
+  {
+   "char": "g",
+   "nome": "Vidro (bloqueia, deixa ver)",
+   "cor": "#bee1f0",
+   "categoria": "solid",
+   "glifo": "glass"
+  },
+  {
+   "char": " ",
+   "nome": "Abismo / vazio",
+   "cor": "#121318",
+   "categoria": "void",
+   "glifo": "void"
+  },
+  {
+   "char": "=",
+   "nome": "Trilho de plataforma",
+   "cor": "#f0c419",
+   "categoria": "void",
+   "glifo": "rail"
+  },
+  {
+   "char": "^",
+   "nome": "Espinhos",
+   "cor": "#d63031",
+   "categoria": "hazard",
+   "glifo": "spikes"
+  },
+  {
+   "char": "L",
+   "nome": "Lanterna",
+   "cor": "#ff9f1a",
+   "categoria": "object",
+   "glifo": "lamp"
+  },
+  {
+   "char": "l",
+   "nome": "Lanterna frágil",
+   "cor": "#ff9f1a",
+   "categoria": "object",
+   "glifo": "lampx"
+  },
+  {
+   "char": "F",
+   "nome": "Fogueira",
+   "cor": "#ff4d1a",
+   "categoria": "hazard",
+   "glifo": "fire"
+  },
+  {
+   "char": "S",
+   "nome": "Espada / item",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "sword"
+  },
+  {
+   "char": "C",
+   "nome": "Alavanca",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "lever"
+  },
+  {
+   "char": "c",
+   "nome": "Placa de pressão",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "plate"
+  },
+  {
+   "char": "k",
+   "nome": "Cristal / chave",
+   "cor": "#22d3e6",
+   "categoria": "object",
+   "glifo": "gem"
+  },
+  {
+   "char": "d",
+   "nome": "Portão fechado",
+   "cor": "#1a7846",
+   "categoria": "solid",
+   "glifo": "gate"
+  },
+  {
+   "char": "D",
+   "nome": "Saída",
+   "cor": "#2ecc71",
+   "categoria": "object",
+   "glifo": "exit"
+  }
+ ],
+ "tiposEntidade": [
+  {
+   "tipo": "player",
+   "nome": "Player",
+   "cor": "#ffffff",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "npc",
+   "nome": "NPC",
+   "cor": "#3478e6",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": true
+  },
+  {
+   "tipo": "chaser",
+   "nome": "Inimigo perseguidor",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "patrol",
+   "nome": "Inimigo patrulheiro",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "charger",
+   "nome": "Investida (linha reta)",
+   "cor": "#8e44ad",
+   "forma": "triangle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "moth",
+   "nome": "Mariposa (voa)",
+   "cor": "#8e44ad",
+   "forma": "diamond",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "goblin",
+   "nome": "Goblin",
+   "cor": "#8e44ad",
+   "forma": "circle",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  },
+  {
+   "tipo": "golem",
+   "nome": "Golem",
+   "cor": "#8e44ad",
+   "forma": "square",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "boulder",
+   "nome": "Rocha rolante",
+   "cor": "#696c72",
+   "forma": "ring",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "platform",
+   "nome": "Plataforma móvel",
+   "cor": "#f0c419",
+   "forma": "rect",
+   "largura": 2,
+   "altura": 2,
+   "conversa": false
+  },
+  {
+   "tipo": "eco",
+   "nome": "Chefe",
+   "cor": "#8e44ad",
+   "forma": "boss",
+   "largura": 1,
+   "altura": 1,
+   "conversa": false
+  }
+ ],
+ "dimensaoA": [
+  "                                        ",
+  "             ##############             ",
+  "             #....####....#             ",
+  "             #.L...S#...L.#             ",
+  "             #............#########     ",
+  "             #...............##...#     ",
+  "             #...............##...#     ",
+  "             #............######..##### ",
+  "             #.L........L.# #.........# ",
+  "             #............# #.........# ",
+  "             ####...####### #.........# ",
+  "                #...#       #   ..    # ",
+  "                #...#       #   ..    # ",
+  " ###########    #...#       #   ..    # ",
+  " #.........######...##      #.........# ",
+  " #...................#      #.........# ",
+  " #...................#      #.........# ",
+  " #...................#      #.........# ",
+  " #...................#      #.........# ",
+  " #.........###########      #.........# ",
+  " ###########                ####DD##### ",
+  "                                        "
+ ],
+ "dimensaoB": [
+  "                                        ",
+  "             ##############             ",
+  "             #....####....#             ",
+  "             #.F...S#...F.#             ",
+  "             #............#########     ",
+  "             #....................#     ",
+  "             #....................#     ",
+  "             #............######..##### ",
+  "             #.F........F.# #.........# ",
+  "             #............# #.........# ",
+  "             ####...####### #.........# ",
+  "                #...#       #         # ",
+  "                #...#       #         # ",
+  " ###########    #...#       #         # ",
+  " #. .......######...##      #.........# ",
+  " #...................#      #.........# ",
+  " #...................#      #.........# ",
+  " #...................#      #.........# ",
+  " #...^...............#      #.........# ",
+  " # ...... .###########      #.........# ",
+  " ###########                ####DD##### ",
+  "                                        "
+ ],
+ "entidades": [
+  {
+   "uid": "fty6ur90",
+   "tipo": "player",
+   "nome": "Início",
+   "x": 4,
+   "y": 17,
+   "largura": 1,
+   "altura": 1,
+   "rota": [],
+   "soExisteEm": null
+  }
+ ],
+ "conexoes": [
+  {
+   "x": 32,
+   "y": 20,
+   "alvo": "fase2.json",
+   "chegada": "ponto de início"
+  },
+  {
+   "x": 33,
+   "y": 20,
+   "alvo": "fase2.json",
+   "chegada": "ponto de início"
+  }
+ ],
+ "notas": [
+  {
+   "uid": "phahkbbo",
+   "n": 1,
+   "x": 8,
+   "y": 16,
+   "texto": "O player caiu em um lugar desconhecido."
+  },
+  {
+   "uid": "xcipw7a8",
+   "n": 2,
+   "x": 18,
+   "y": 12,
+   "texto": "Sala com espada em destaque, ao redor algumas lanternas ou talvez flores."
+  },
+  {
+   "uid": "n65vv6gj",
+   "n": 3,
+   "x": 19,
+   "y": 4,
+   "texto": "Pressione E para pegar a espada:\n- Indicador gráfico de que você adquiriu um novo poder.\n-  Indicador textual de que você pode pressionar espaço para trocar de dimensão."
+  },
+  {
+   "uid": "woo4evgh",
+   "n": 4,
+   "x": 28,
+   "y": 4,
+   "texto": "A árvore caída (só em A) bloqueia a  saída do santuário. Em B o corredor está livre."
+  },
+  {
+   "uid": "j4ymp9dn",
+   "n": 5,
+   "x": 31,
+   "y": 9,
+   "texto": "Em B o abismo não tem ponte. Volte para A e atravesse."
+  },
+  {
+   "uid": "h9boa72i",
+   "n": 6,
+   "x": 35,
+   "y": 19,
+   "texto": "Saída. (Não pensei em algo gráfico pra saída das fases, mas vou bolar algo daora)."
+  }
+ ]
+}
