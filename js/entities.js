@@ -1,11 +1,18 @@
+const PLAYER_FRAME_SIZE = 16;
+const PLAYER_FRAME_COUNT = 3;
+const PLAYER_FRAME_DURATION = 0.12;
+
 class Player {
-    constructor(x, y, size = 35, speed = 230) {
+    constructor(x, y, size = 45, speed = 230) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.speed = speed;
         this.image = null;
         this.direction = { x: 1, y: 0 }; //facing
+        this.isMoving = false;
+        this.animationFrame = 0;
+        this.animationTimer = 0;
     }
 
     update(deltaTime, keys, worldWidth, worldHeight) {
@@ -22,27 +29,49 @@ class Player {
             this.direction.y = moveY;
         }
         //posicao atual + direçao x vel x tempo
-        this.x = Math.max(0, Math.min(
+        const nextX = Math.max(0, Math.min(
             worldWidth - this.size,
             this.x + moveX * this.speed * deltaTime
         ));
-        this.y = Math.max(0, Math.min(
+        const nextY = Math.max(0, Math.min(
             worldHeight - this.size,
             this.y + moveY * this.speed * deltaTime
         ));
+        this.isMoving = nextX !== this.x || nextY !== this.y;
+        this.x = nextX;
+        this.y = nextY;
+
+        if (this.isMoving) {
+            this.animationTimer += deltaTime;
+            while (this.animationTimer >= PLAYER_FRAME_DURATION) {
+                this.animationTimer -= PLAYER_FRAME_DURATION;
+                this.animationFrame = (this.animationFrame + 1) % PLAYER_FRAME_COUNT;
+            }
+        } else {
+            this.animationFrame = 0;
+            this.animationTimer = 0;
+        }
     } //End de update
 
     draw(ctx) {
         if (this.image && this.image.complete && this.image.naturalWidth > 0) {
             ctx.save();
             ctx.imageSmoothingEnabled = false;
-            //inverte para esquerda
+            const sourceX = this.animationFrame * PLAYER_FRAME_SIZE;
             if (this.direction.x < 0) {
                 ctx.translate(this.x + this.size, this.y);
                 ctx.scale(-1, 1);
-                ctx.drawImage(this.image, 0, 0, this.size, this.size);
+                ctx.drawImage(
+                    this.image,
+                    sourceX, 0, PLAYER_FRAME_SIZE, PLAYER_FRAME_SIZE,
+                    0, 0, this.size, this.size
+                );
             } else {
-                ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
+                ctx.drawImage(
+                    this.image,
+                    sourceX, 0, PLAYER_FRAME_SIZE, PLAYER_FRAME_SIZE,
+                    this.x, this.y, this.size, this.size
+                );
             }
             ctx.restore();
         } else {

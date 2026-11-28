@@ -23,7 +23,7 @@ O cursor e os cliques no Canvas são convertidos para coordenadas do mundo e arm
 Pressionar `Espaço` alterna a dimensão ativa enquanto o jogo está em andamento. Isso troca o terreno e determina quais inimigos são desenhados e atualizados.
 
 ## Personagem
-O personagem é um quadrado branco de **35 × 35** unidades, com velocidade de **230** unidades por segundo. Sua posição é limitada ao tamanho do mundo.
+O personagem é um quadrado branco de **45 × 45** unidades, com velocidade de **230** unidades por segundo. Sua posição é limitada ao tamanho do mundo.
 
 ## Inimigos
 Cada inimigo tem um ponto inicial e um ponto final de patrulha. Ele se move em linha reta entre esses pontos e inverte a direção ao chegar a cada extremidade. Os pontos podem formar uma rota horizontal, vertical ou diagonal.

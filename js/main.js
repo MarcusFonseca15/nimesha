@@ -72,7 +72,7 @@ const blueGrassImage = new Image();
 let bluePattern = null;
 
 const playerImage = new Image();
-playerImage.src = 'assets/player.png';
+playerImage.src = 'assets/player-sheet.png';
 
 yellowGrassImage.src = 'assets/yellow_grass.png';
 blueGrassImage.src = 'assets/blue_grass.png';
